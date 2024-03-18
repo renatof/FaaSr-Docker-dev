@@ -27,8 +27,6 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    env:
-       ${{ github.event.inputs.ID || ''  }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
