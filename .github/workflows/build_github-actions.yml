@@ -3,7 +3,7 @@ name: GitHub Actions Build+push FaaS platform-specific image
 on: 
   workflow_dispatch:
     inputs:
-      # BASE_IMAGE is the user/name of the base FaaSr image (stored in DockerHub) to build from 
+      # BASE_NAME is the user/name of the base FaaSr image (stored in DockerHub) to build from 
       # Examples: janedoe/base-tidyverse, faasr/base-tidyverse
       BASE_NAME:
         description: 'user/name of the base FaaSr image e.g. janedoe/base-tidyverse'
@@ -54,8 +54,8 @@ jobs:
         run: |
           cd faas_specific
           mv Dockerfile-github-actions Dockerfile
-          docker build -t ghcr.io/${{ github.event.inputs.GHCR_IO_REPO }}/{{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }} --build-arg FAASR_VERSION=${{ github.event.inputs.FAASR_VERSION }} --build-arg FAASR_INSTALL_REPO=${{ github.event.inputs.FAASR_INSTALL_REPO }} .
-      - name: Push github-actions-tidyverse Container registry image
+          docker build -t ghcr.io/${{ github.event.inputs.GHCR_IO_REPO }}/{{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }} --build-arg BASE_NAME=${{ github.event.inputs.BASE_NAME }} --build-arg FAASR_VERSION=${{ github.event.inputs.FAASR_VERSION }} --build-arg FAASR_INSTALL_REPO=${{ github.event.inputs.FAASR_INSTALL_REPO }} .
+      - name: Push github-actions image to GitHub Container registry
         run: |
           docker tag ghcr.io/${{ github.event.inputs.GHCR_IO_REPO }}/{{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }} ghcr.io/${{ github.actor }}/{{ github.event.inputs.TARGET_NAME }}:${{ env.FAASR_VERSION }}
-          docker push ghcr.io/${{ env.GHCR_IO_REPO }}/github-actions-tidyverse:${{ env.FAASR_TAG }}-${{ env.TAG_SUFFIX }}
+          docker push ghcr.io/${{ github.event.inputs.GHCR_IO_REPO }}/{{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }}
