@@ -10,8 +10,8 @@ FROM $BASE_NAME:$FAASR_VERSION
 
 
 # Install FaaSr from specified repo and tag
-#RUN Rscript -e "args <- commandArgs(trailingOnly=TRUE); library(devtools); install_github(paste0(args[1],'@',args[2]),force=TRUE)" $FAASR_INSTALL_REPO $FAASR_VERSION
-RUN Rscript -e "args <- commandArgs(trailingOnly=TRUE); library(devtools); install_github(paste0(args[1],'@',args[2]),force=TRUE)" FaaSr/FaaSr-Package 1.1.2
+RUN Rscript -e "args <- commandArgs(trailingOnly=TRUE); library(devtools); install_github(paste0(args[1],'@',args[2]),force=TRUE)" $FAASR_INSTALL_REPO $FAASR_VERSION
+#RUN Rscript -e "args <- commandArgs(trailingOnly=TRUE); library(devtools); install_github(paste0(args[1],'@',args[2]),force=TRUE)" FaaSr/FaaSr-Package 1.1.2
 
 # OpenWhisk specifics
 CMD ["/bin/bash","-c","cd actionProxy && python3 actionproxy.py"]
