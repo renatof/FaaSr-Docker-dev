@@ -14,7 +14,7 @@ on:
       TARGET_NAME:
         description: 'name of the FaaS-specific image to build'
         required: true
-        default: 'github-actions-tidyverse'
+        default: 'openwhisk-tidyverse'
       # FAASR_VERSION is the FaaSr version tag to be used for this base FaaSr image
       # Examples: 1.1.2, 1.3.1
       FAASR_VERSION:
@@ -46,8 +46,8 @@ jobs:
         run: |
           cd faas_specific
           mv Dockerfile-openwhisk Dockerfile
-          docker build -t {{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }} --build-arg BASE_NAME=${{ github.event.inputs.BASE_NAME }} --build-arg FAASR_VERSION=${{ github.event.inputs.FAASR_VERSION }} --build-arg FAASR_INSTALL_REPO=${{ github.event.inputs.FAASR_INSTALL_REPO }} .
-      - name: Push OpenWhisk image tto DockerHub
+          docker build -t ${{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }} --build-arg BASE_NAME=${{ github.event.inputs.BASE_NAME }} --build-arg FAASR_VERSION=${{ github.event.inputs.FAASR_VERSION }} --build-arg FAASR_INSTALL_REPO=${{ github.event.inputs.FAASR_INSTALL_REPO }} .
+      - name: Push OpenWhisk image to DockerHub
         run: |
-          docker tag {{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }} ${{ secrets.DOCKERHUB_USERNAME }}/{{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }}
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/{{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }}
+          docker tag ${{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }}
