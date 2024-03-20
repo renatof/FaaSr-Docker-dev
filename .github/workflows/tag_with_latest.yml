@@ -1,4 +1,4 @@
-name: Tag Docker image as latest
+name: Tag DockerHub, GHCR, ECR as latest
 
 on: 
   workflow_dispatch:

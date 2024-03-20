@@ -1,4 +1,4 @@
-name: AWS Lambda Build+push FaaS platform-specific image
+name: aws-lambda -> ECR
 
 on: 
   workflow_dispatch:
