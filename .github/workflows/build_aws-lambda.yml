@@ -56,8 +56,8 @@ jobs:
       - name: Build aws-lambda Container registry image
         run: |
           cd faas_specific
-          mv Dockerfile-aws-lambda Dockerfile
-          docker build -t ${{ steps.login-ecr.outputs.registry }}/${{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }} --build-arg BASE_IMAGE=${{ github.event.inputs.BASE_IMAGE }} --build-arg FAASR_VERSION=${{ github.event.inputs.FAASR_VERSION }} --build-arg FAASR_INSTALL_REPO=${{ github.event.inputs.FAASR_INSTALL_REPO }} .
+#          mv Dockerfile-aws-lambda Dockerfile
+          docker build -f aws-lambda.Dockerfile -t ${{ steps.login-ecr.outputs.registry }}/${{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }} --build-arg BASE_IMAGE=${{ github.event.inputs.BASE_IMAGE }} --build-arg FAASR_VERSION=${{ github.event.inputs.FAASR_VERSION }} --build-arg FAASR_INSTALL_REPO=${{ github.event.inputs.FAASR_INSTALL_REPO }} .
       - name: Push aws-lambda image to ECR
         run: |
           docker push ${{ steps.login-ecr.outputs.registry }}/${{ github.event.inputs.TARGET_NAME }}:${{ github.event.inputs.FAASR_VERSION }}
