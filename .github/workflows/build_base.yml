@@ -40,9 +40,7 @@ jobs:
       - name: Build base FaaSr Docker image
         run: |
           cd base
-#          mv Dockerfile-base Dockerfile
           docker build -f base.Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.inputs.BASE_NAME }}:${{ github.event.inputs.FAASR_VERSION }} --build-arg BUILD_FROM=${{ github.event.inputs.BUILD_FROM }} .
       - name: Push base FaaSr Docker image
         run: |
-#          docker tag ${{ github.event.inputs.BASE_NAME }}:${{ github.event.inputs.FAASR_VERSION }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.inputs.BASE_NAME }}:${{ github.event.inputs.FAASR_VERSION }}
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.inputs.BASE_NAME }}:${{ github.event.inputs.FAASR_VERSION }}
